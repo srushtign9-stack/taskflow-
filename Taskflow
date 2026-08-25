@@ -1,0 +1,41 @@
+ TaskFlow
+A full-stack task and project management application.
+
+Features
+Create and manage projects
+
+Create, edit and delete tasks
+
+Task status management
+
+Priority levels: Low, Medium and High
+
+Dashboard with task statistics
+
+Search and filter tasks
+
+REST API integration
+
+Responsive user interface
+
+Tech Stack
+Frontend
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+Backend
+
+Node.js
+
+Express.js
+
+Database
+
+MySQL
+
+Project Status
+Currently under development.
