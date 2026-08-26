@@ -1,1 +1,7 @@
 
+.gitignore
+node_modules/
+.env
+.env.local
+dist/
+build/
