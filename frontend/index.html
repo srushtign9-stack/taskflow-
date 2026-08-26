@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>TaskFlow - Task Management</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f5f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #2563eb;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    .stats {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      flex: 1;
+      min-width: 150px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .card h2 {
+      color: #2563eb;
+    }
+
+    .task-form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    input, select, button {
+      padding: 12px;
+      margin: 5px 0;
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .task {
+      background: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .task-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-btn {
+      background: #dc2626;
+      width: auto;
+      padding: 8px 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>TaskFlow</h1>
+    <p>Smart Task Management System</p>
+  </header>
+
+  <div class="container">
+
+    <div class="stats">
+      <div class="card">
+        <p>Total Tasks</p>
+        <h2 id="total">0</h2>
+      </div>
+
+      <div class="card">
+        <p>To Do</p>
+        <h2 id="todo">0</h2>
+      </div>
+
+      <div class="card">
+        <p>In Progress</p>
+        <h2 id="progress">0</h2>
+      </div>
+
+      <div class="card">
+        <p>Completed</p>
+        <h2 id="completed">0</h2>
+      </div>
+    </div>
+
+    <div class="task-form">
+      <h2>Add New Task</h2>
+
+      <input
+        type="text"
+        id="title"
+        placeholder="Enter task title"
+      />
+
+      <select id="status">
+        <option>To Do</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
+
+      <select id="priority">
+        <option>Low</option>
+        <option selected>Medium</option>
+        <option>High</option>
+      </select>
+
+      <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <div>
+      <h2>My Tasks</h2>
+      <div id="taskList"></div>
+    </div>
+
+  </div>
+
+  <script>
+    let tasks = [];
+
+    function renderTasks() {
+      const taskList = document.getElementById("taskList");
+
+      taskList.innerHTML = "";
+
+      tasks.forEach((task, index) => {
+        taskList.innerHTML += `
+          <div class="task">
+            <div class="task-info">
+              <div>
+                <h3>${task.title}</h3>
+                <p>Status: ${task.status}</p>
+                <p>Priority: ${task.priority}</p>
+              </div>
+
+              <button
+                class="delete-btn"
+                onclick="deleteTask(${index})"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        `;
+      });
+
+      updateStats();
+    }
+
+    function addTask() {
+      const title = document.getElementById("title").value;
+      const status = document.getElementById("status").value;
+      const priority = document.getElementById("priority").value;
+
+      if (!title) {
+        alert("Please enter a task title");
+        return;
+      }
+
+      tasks.push({
+        title,
+        status,
+        priority
+      });
+
+      document.getElementById("title").value = "";
+
+      renderTasks();
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      renderTasks();
+    }
+
+    function updateStats() {
+      document.getElementById("total").innerText = tasks.length;
+
+      document.getElementById("todo").innerText =
+        tasks.filter(task => task.status === "To Do").length;
+
+      document.getElementById("progress").innerText =
+        tasks.filter(task => task.status === "In Progress").length;
+
+      document.getElementById("completed").innerText =
+        tasks.filter(task => task.status === "Completed").length;
+    }
+  </script>
+
+</body>
+</html>
