@@ -1,1 +1,12 @@
 
+CREATE DATABASE taskflow;
+
+USE taskflow;
+
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    status VARCHAR(50) DEFAULT 'To Do',
+    priority VARCHAR(50) DEFAULT 'Medium',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
